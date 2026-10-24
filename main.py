@@ -167,8 +167,7 @@ def show_analysis(result):
     result.to_csv("analysis_results.csv", index=False)
     print("\nFull results saved to: analysis_results.csv")
     print("Note: The dataset is sample data for demonstrating the project.")
-
-
+      
 
 def plot_student_performance(result):
     """Display a bar chart comparing student average marks."""
@@ -201,17 +200,29 @@ def plot_student_performance(result):
 
 
 def plot_subject_performance(result):
-    """Display a chart comparing average marks by subject."""
-    subject_averages = result[SUBJECTS].mean()
+    """Display average marks for each subject."""
+    subjects = ["Python", "NumPy", "Pandas", "Data_Analysis"]
+    averages = result[subjects].mean()
 
-    plt.figure(figsize=(8, 5))
-    plt.bar(subject_averages.index, subject_averages.values)
+    plt.figure(figsize=(9, 5))
+    bars = plt.bar(averages.index, averages.values)
 
-    plt.title("Subject-Wise Average Marks")
-    plt.xlabel("Subjects")
+    plt.title("Average Performance by Subject")
+    plt.xlabel("Subject")
     plt.ylabel("Average Marks")
-    plt.ylim(0, 100)
-    plt.xticks(rotation=20)
+    plt.ylim(0, 110)
+
+    # Display numbers above each bar
+    for bar in bars:
+        height = bar.get_height()
+        plt.text(
+            bar.get_x() + bar.get_width() / 2,
+            height + 1,
+            f"{height:.1f}",
+            ha="center",
+            va="bottom"
+        )
+
     plt.tight_layout()
 
 
