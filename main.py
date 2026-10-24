@@ -169,18 +169,35 @@ def show_analysis(result):
     print("Note: The dataset is sample data for demonstrating the project.")
 
 
+
 def plot_student_performance(result):
-    """Display a chart comparing student average marks."""
+    """Display a bar chart comparing student average marks."""
     plt.figure(figsize=(10, 5))
 
-    plt.bar(result["Name"], result["Average"])
+    bars = plt.bar(
+        result["Name"],
+        result["Average"]
+    )
 
     plt.title("Student Performance Comparison")
     plt.xlabel("Student Name")
     plt.ylabel("Average Marks")
-    plt.ylim(0, 100)
+    plt.ylim(0, 110)
     plt.xticks(rotation=45)
+
+    # Display each student's average above the bar.
+    for bar in bars:
+        height = bar.get_height()
+        plt.text(
+            bar.get_x() + bar.get_width() / 2,
+            height + 1,
+            f"{height:.1f}",
+            ha="center",
+            va="bottom"
+        )
+
     plt.tight_layout()
+
 
 
 def plot_subject_performance(result):
