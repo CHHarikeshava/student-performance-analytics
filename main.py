@@ -198,6 +198,24 @@ def plot_subject_performance(result):
     plt.tight_layout()
 
 
+def plot_pass_fail(result):
+    """Display a pie chart of pass and fail counts."""
+    counts = result["Result"].value_counts()
+
+    labels = counts.index
+    values = counts.values
+
+    plt.figure(figsize=(6, 6))
+    plt.pie(
+        values,
+        labels=labels,
+        autopct="%1.1f%%",
+        startangle=90
+    )
+
+    plt.title("Student Pass vs Fail")
+    plt.axis("equal")
+
 def main():
     try:
         data = load_data(DATA_FILE)
@@ -209,7 +227,7 @@ def main():
         # Create both charts before displaying them.
         plot_student_performance(result)
         plot_subject_performance(result)
-
+        plot_pass_fail(result)
         # Display both chart windows.
         plt.show()
 
